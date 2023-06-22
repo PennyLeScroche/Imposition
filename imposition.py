@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 class Old_Result():
     spell = 0
     path = 0
@@ -119,6 +120,17 @@ if type.lower()=="old":
         print(output[x])
     print("For "+str(rolls)+" rolls in the old Imposition Dice system with a d"+str(spell_size)+" Spell Die, a d"+str(path_size)+" Path Die, and a d"+str(imp_size)+" Imposition Die the results are:")
     print("Successes: "+str(success)+", Partial Successes: "+str(partial)+", Failures: "+str(failure))
+    print("Output to file(y/n)?")
+    out = input()
+    if out == "y":
+        a = datetime.now()
+        filename = "imposition_new_"+str(a.strftime("%Y-%m-%dT%H%M")+".csv")
+        f = open(filename,"w")
+        f.write("Spell("+str(spell_size)+"), Path("+str(path_size)+"), Imposition("+str(imp_size)+"), Die Result, Result\n")
+        for x in range(len(results)):
+            f.write(str(results[x].spell)+","+str(results[x].path)+","+str(results[x].imp)+","+str(results[x].die_result)+","+str(results[x].result)+"\n")
+        f.close()
+        print("File "+filename+" has been created")
 else:
     for x in range(rolls):
         result = New_Result(int(spell_size),int(path_size),int(imp_size))
@@ -136,4 +148,15 @@ else:
         print(output[x])
     print("For "+str(rolls)+" rolls in the new Impositions Dice system with a d"+str(spell_size)+" Spell Die, a d"+str(path_size)+" Path Die, and a d"+str(imp_size)+" Imposition Die the results are:")
     print("Successes: "+str(success)+", Partial Successes: "+str(partial)+", Failures: "+str(failure))
+    print("Output to file(y/n)?")
+    out = input()
+    if out == "y":
+        a = datetime.now()
+        filename = "imposition_new_"+str(a.strftime("%Y-%m-%dT%H%M")+".csv")
+        f = open(filename,"w")
+        f.write("Spell("+str(spell_size)+"), Path("+str(path_size)+"), Imposition("+str(imp_size)+"), Result\n")
+        for x in range(len(results)):
+            f.write(str(results[x].spell)+","+str(results[x].path)+","+str(results[x].imp)+","+str(results[x].result)+"\n")
+        f.close()
+        print("File "+filename+" has been created")
     
