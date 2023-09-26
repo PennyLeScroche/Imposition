@@ -28,8 +28,10 @@ class Roll:
         #print("Opposition:",self.opposition)
         if self.pool[-1] - self.opposition[-1] >= 5:
             self.result = "success+"
-        elif self.pool[-1] - self.opposition[-1]>=0:
+        elif self.pool[-1] - self.opposition[-1]>0:
             self.result = "success"
+        elif self.pool[-1] - self.opposition[-1]==0:
+            self.result = "success-"
         else:
             self.result = "failure"
         #print("Starting Pool:",self.pool_results)
@@ -98,15 +100,18 @@ while(loop):
     Criticals = 0
     Successes = 0
     Failures = 0
+    Mixed = 0
     for x in range(len(rolls)):
         if rolls[x].result == "success+":
             Criticals+=1
         elif rolls[x].result == "success":
             Successes+=1
+        elif rolls[x].result == "success-":
+            Mixed+=1
         else:
             Failures+=1
-        print(x+1,"|",pool_input,"|",opposition_input,"|",str(rolls[x].pool_results),"|",str(rolls[x].opposition_results),"|",rolls[x].pool[0] - rolls[x].opposition[0],"|",rolls[x].result)
-    print("Rolled a pool of",pool_input,"against a pool of",opposition_input,str(num_rolls),"times with",Successes,"successes,",Criticals,"Critical successes, and",Failures,"failures")
+        print(x+1,"|",pool_input,"|",opposition_input,"|",str(rolls[x].pool_results),"|",str(rolls[x].opposition_results),"|",rolls[x].pool[-1] - rolls[x].opposition[-1],"|",rolls[x].result)
+    print("Rolled a pool of",pool_input,"against a pool of",opposition_input,str(num_rolls),"times with",Successes,"successes,",Criticals,"Critical successes,",Mixed,"Mixed Successes, and",Failures,"failures")
     again_loop = True
     while(again_loop):
         print("would you like to run again(y/n)?")
